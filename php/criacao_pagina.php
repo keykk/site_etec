@@ -20,9 +20,10 @@
 				
 				if($pa_dispo->rowCount() == 0){
 					
-					$insert = $connnect->query("INSERT INTO etec_pagina (pa_titulo,pa_conteudo,pa_autoria,pa_data,pa_edicao) VALUES ('$pa_titulo','$dados','{$userDado->name}',NOW(),NOW())") or die (SqlErro($connnect->ErrorInfo()[2]));
+					$insert = $connnect->prepare("INSERT INTO etec_pagina (pa_titulo,pa_conteudo,pa_autoria,pa_data,pa_edicao) VALUES (?,?,?,NOW(),NOW())") or die (SqlErro($connnect->ErrorInfo()[2]));
+					$insert->execute(array($pa_titulo, $dados, $userDado->name));
 					
-					if($insert->rowCount() > 0)
+					if($insert)
 						echo "Sucesso!!! -> Nova pagina Publicada.";
 					else
 						echo "Falha ao publicar nova pagina.";

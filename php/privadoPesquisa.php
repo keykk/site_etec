@@ -52,7 +52,7 @@ border:1px solid black;
 					</tr>
 					
 					";
-					while($objetoDados = mysql_fetch_object($seleciona)){
+					while($objetoDados = $seleciona->fetch(PDO::FETCH_OBJ)){
 					$nasc = date("d-m-Y",strtotime($objetoDados->u_datanasc));
 					$link = htmlentities(urlencode($objetoDados->u_apelido));
 						echo "

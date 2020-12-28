@@ -12,7 +12,7 @@
 	echo "<p style='color:red;'>";
 	if(isset($_POST['mypag']) && isset($_POST['pww'])){
 		$senha = trataValor(MD5($_POST['pww']));
-		$dados = filter_var($_POST['mypag'], FILTER_SANITIZE_STRING);
+		$dados = filter_var($_POST['mypag']);
 		
 		if($senha === $userDado->pw){
 			$query = $connnect->prepare("UPDATE etec_usuario SET u_pagina = ? WHERE u_codigo = ?") or die (SqlErro($connnect->ErrorInfo()[2]));

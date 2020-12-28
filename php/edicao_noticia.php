@@ -116,7 +116,7 @@ theme_advanced_buttons1:
 							$query->execute(array($categoria, $titulo, $noticias->codigo));
 							
 							if($query->rowCount() == 0){
-								$update = $connnect->prepare("UPDATE etec_integra SET in_titulo = ?,in_conteudo = ?,in_data_on = ?,in_data_off = ?,in_editor = ?,in_data_edicao = NOW(),in_categoria = ? WHERE in_codigo = ?") OR DIE (MYSQL_ERROR());
+								$update = $connnect->prepare("UPDATE etec_integra SET in_titulo = ?,in_conteudo = ?,in_data_on = ?,in_data_off = ?,in_editor = ?,in_data_edicao = NOW(),in_categoria = ? WHERE in_codigo = ?") or die (SqlErro($connnect->ErrorInfo()[2]));
 								
 								$update->execute(array($titulo, $conteudo, $data_on_invert.' '.$data_on[1], $data_off_invert.' '.$data_off[1], $userDado->name, $categoria, $noticias->codigo));
 								
