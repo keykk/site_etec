@@ -18,8 +18,8 @@ if(isset($_GET['pg'])){
 }else{
 	$pagina = 1;
 }
-$celectAll = $connnect->prepare("SELECT g.g_codigo,g.g_nome,g.g_data,g.autor,p.p_nivel,p.p_etc, COUNT(u.u_codigo) AS users FROM etec_grupo g JOIN etec_privilegio p ON g.g_privilegio = p.p_codigo LEFT JOIN etec_usuario u ON u.u_grupo = g.g_codigo WHERE g.g_nome LIKE '%?%' GROUP BY g.g_codigo") or die (SqlErro($connnect->ErrorInfo()[2]));
-$celectAll->execute(array($pesquisa));
+$celectAll = $connnect->prepare("SELECT g.g_codigo,g.g_nome,g.g_data,g.autor,p.p_nivel,p.p_etc, COUNT(u.u_codigo) AS users FROM etec_grupo g JOIN etec_privilegio p ON g.g_privilegio = p.p_codigo LEFT JOIN etec_usuario u ON u.u_grupo = g.g_codigo WHERE g.g_nome LIKE ? GROUP BY g.g_codigo") or die (SqlErro($connnect->ErrorInfo()[2]));
+$celectAll->execute(array('%'.$pesquisa.'%'));
 
 $contagemdeLinhas = $celectAll->rowCount();
 $numP = ceil($contagemdeLinhas / TOTAL);
@@ -33,8 +33,8 @@ if($pagina <= 0){
 $inicio = $pagina - 1;
 $inicio = $inicio * TOTAL;
 //Paginacao\\
-$query = $connnect->prepare("SELECT g.g_codigo,g.g_nome,g.g_data,g.autor,p.p_nivel,p.p_etc, COUNT(u.u_codigo) AS users FROM etec_grupo g JOIN etec_privilegio p ON g.g_privilegio = p.p_codigo LEFT JOIN etec_usuario u ON u.u_grupo = g.g_codigo WHERE g.g_nome LIKE '%?%' GROUP BY g.g_codigo LIMIT $inicio,".TOTAL) or die (SqlErro($connnect->ErrorInfo()[2]));
-$query->execute(array($pesquisa));
+$query = $connnect->prepare("SELECT g.g_codigo,g.g_nome,g.g_data,g.autor,p.p_nivel,p.p_etc, COUNT(u.u_codigo) AS users FROM etec_grupo g JOIN etec_privilegio p ON g.g_privilegio = p.p_codigo LEFT JOIN etec_usuario u ON u.u_grupo = g.g_codigo WHERE g.g_nome LIKE ? GROUP BY g.g_codigo LIMIT $inicio,".TOTAL) or die (SqlErro($connnect->ErrorInfo()[2]));
+$query->execute(array('%'.$pesquisa.'%'));
 
 if($query->rowCount() > 0){
 	

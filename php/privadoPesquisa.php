@@ -22,8 +22,8 @@ border:1px solid black;
 			$pagina = 1;
 		}
 		
-		$celectAll = $connnect->prepare("SELECT * FROM etec_usuario WHERE u_apelido LIKE '%?%'") or die (SqlErro($connnect->ErrorInfo()[2]));
-		$celectAll->execute(array($statement));
+		$celectAll = $connnect->prepare("SELECT * FROM etec_usuario WHERE u_apelido LIKE ?") or die (SqlErro($connnect->ErrorInfo()[2]));
+		$celectAll->execute(array('%'.$statement.'%'));
 		
 		$contagemdeLinhas = $celectAll->rowCount();
 		$numP = ceil($contagemdeLinhas / TOTAL);
@@ -38,8 +38,8 @@ border:1px solid black;
 		$inicio = $inicio * TOTAL;
 		//Paginacao\\
 		
-				$seleciona = $connnect->prepare("SELECT * FROM etec_usuario WHERE u_apelido LIKE '%?%' LIMIT $inicio,".TOTAL) or die (SqlErro($connnect->ErrorInfo()[2]));
-				$seleciona->execute(array($statement));
+				$seleciona = $connnect->prepare("SELECT * FROM etec_usuario WHERE u_apelido LIKE ? LIMIT $inicio,".TOTAL) or die (SqlErro($connnect->ErrorInfo()[2]));
+				$seleciona->execute(array('%'.$statement.'%'));
 				
 				if($seleciona->rowCount() > 0){
 					echo "

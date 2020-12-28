@@ -24,12 +24,12 @@
 			}
 			
 			if($_GET['action'] == "on"){
-				$celectAll = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_on <= NOW() AND in_data_off > NOW() AND in_titulo LIKE '%?%'");
+				$celectAll = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_on <= NOW() AND in_data_off > NOW() AND in_titulo LIKE ?");
 			}else if($_GET['action'] == "off"){
-				$celectAll = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_off < NOW() OR in_data_on > NOW() AND in_titulo LIKE '%?%'");
+				$celectAll = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_off < NOW() OR in_data_on > NOW() AND in_titulo LIKE ?");
 			}
 			
-			$celectAll->execute(array($advanced));
+			$celectAll->execute(array('%'.$advanced.'%'));
 			
 			$contagemdeLinhas = $celectAll->rowCount();
 			$numP = ceil($contagemdeLinhas / TOTAL);
@@ -44,12 +44,12 @@
 			$inicio = $inicio * TOTAL;
 			//Paginacao\\
 			if($_GET['action'] == "on"){
-				$query = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_on <= NOW() AND in_data_off > NOW() AND in_titulo LIKE '%?%' LIMIT $inicio,".TOTAL);
+				$query = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_on <= NOW() AND in_data_off > NOW() AND in_titulo LIKE ? LIMIT $inicio,".TOTAL);
 			}else if($_GET['action'] == "off"){
-				$query = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_off < NOW() OR in_data_on > NOW() AND in_titulo LIKE '%?%' LIMIT $inicio,".TOTAL);
+				$query = $connnect->prepare("SELECT * FROM etec_integra WHERE in_data_off < NOW() OR in_data_on > NOW() AND in_titulo LIKE ? LIMIT $inicio,".TOTAL);
 			}
 			
-			$query->execute(array($advanced));
+			$query->execute(array('%'.$advanced.'%'));
 			
 			if($query->rowCount() > 0){
 			

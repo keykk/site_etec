@@ -29,7 +29,7 @@
 		$data_off_invert = implode("-",array_reverse(explode("/",$date_off[0])));
 		
 		$in_titulo = trataValor($_POST['in_titulo']);
-		$in_conteudo = mysql_real_escape_string($_POST['mypag']);
+		$in_conteudo = filter_input(INPUT_POST,'mypag');
 		$categoria = (int)$_POST['categoria'];
 		$pass = MD5(trataValor($_POST['pass']));
 		if(preg_match("/^\w.{3,50}$/",$in_titulo)){
