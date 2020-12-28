@@ -1,0 +1,10 @@
+#suprema{
+width:96%;
+}
+#cabecario{
+background-image:url(../images/etec.jpg);
+height:100px;
+background-size:100%;
+background-color:red;
+background-repeat:no-repeat;
+}

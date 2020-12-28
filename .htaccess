@@ -1,0 +1,6 @@
+Options -Indexes
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-D
+
+RewriteRule ^(.*)$ index.php?pagina=$1

@@ -1,0 +1,59 @@
+<?php
+if(!isset($connnect))
+	$connnect = Conexao::getInstance();
+?>
+<div style="height:360px;">
+<!-- Start WOWSlider.com HEAD section -->
+	<link rel="stylesheet" type="text/css" href="<?php echo $past; ?>css/style.css" media="screen" />
+	<!-- Start WOWSlider.com BODY section -->
+	<div id="wowslider-container1">
+	<div class="ws_images"><ul>
+	<?php
+		$selecwow = $connnect->query('SELECT * FROM etec_wowslide WHERE w_ativacao <= NOW() AND w_desativacao > NOW()') or die (SqlErro($connnect->ErrorInfo()[2]));
+		
+		if($selecwow->rowCount() > 0){
+			while($obj_wow = $selecwow->fetch(PDO::FETCH_OBJ)){
+				
+				echo "
+					<li><a href='{$obj_wow->w_link}' target='_blank'><img src='{$past}configslider.php?arquivo={$obj_wow->w_slide}&largura=960&altura=360' alt='{$obj_wow->w_titulo}' title='{$obj_wow->w_titulo}' id='wows0'/></a></li>
+				";
+			}
+			
+		}else{
+	?>
+	
+<li><a href="#"><img src="<?php echo $past; ?>images/slide/Etecbauru.png" alt="Frosty : Best Image Slider" title="ETEC - BAURU" id="wows0"/></a></li>
+<li><a href="#"><img src="<?php echo $past; ?>images/slide/raindrops.jpg" alt="Rain drops : Best Wordpress Slideshow" title="Rain drops" id="wows2"/></a></li>
+<li><a href="#"><img src="<?php echo $past; ?>images/slide/frosty.jpg" alt="Rain drops : Best Wordpress Slideshow" title="Rain drops" id="wows2"/></a></li>
+<?php
+	}
+?>
+</ul></div>
+<div class="ws_bullets"><div>
+<?php
+	$selecwow2 = $connnect->query("SELECT * FROM etec_wowslide WHERE w_ativacao <= NOW() AND w_desativacao > NOW()") or die (SqlErro($connnect->ErrorInfo()[2]));
+	if($selecwow2->rowCount() > 0){
+			while($obj_wow2 = $selecwow2->fetch(PDO::FETCH_OBJ)){
+				
+				echo "
+					<a href='#' title='{$obj_wow2->w_titulo}'><img src='{$past}configslider.php?arquivo={$obj_wow2->w_slide}&largura=240&altura=90' alt='{$obj_wow2->w_titulo}'/>Jquery</a>
+				";
+			}
+			
+	}else{
+?>
+<a href="#" title="Frosty"><img src="<?php echo $past; ?>images/slide/Etecbauru1.png" alt="ETEC - BAURU"/>Best jQuery Photo Gallery</a>
+<a href="#" title="Rain drops"><img src="<?php echo $past; ?>images/slide/raindrops1.jpg" alt="Rain drops"/>Best jQuery Gallery</a>
+<a href="#" title="Rain drops"><img src="<?php echo $past; ?>images/slide/frosty1.jpg" alt="Rain drops"/>Best jQuery Gallery</a>
+<?php
+}
+?>
+</div></div>
+
+	<a href="#" class="ws_frame"></a>
+	<div class="ws_shadow"></div>
+	</div>
+	<script type="text/javascript" src="<?php echo $past; ?>js/wowslider.js"></script>
+	<script type="text/javascript" src="<?php echo $past; ?>js/script.js"></script>
+	<!-- End WOWSlider.com BODY section -->
+	</div>
