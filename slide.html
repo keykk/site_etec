@@ -14,8 +14,11 @@ if(!isset($connnect))
 		if($selecwow->rowCount() > 0){
 			while($obj_wow = $selecwow->fetch(PDO::FETCH_OBJ)){
 				
-				echo "
+				/*echo "
 					<li><a href='{$obj_wow->w_link}' target='_blank'><img src='{$past}configslider.php?arquivo={$obj_wow->w_slide}&largura=960&altura=360' alt='{$obj_wow->w_titulo}' title='{$obj_wow->w_titulo}' id='wows0'/></a></li>
+				";*/
+				echo "
+					<li><a href='{$obj_wow->w_link}' target='_blank'><img width='960' height='360' src='{$past}{$obj_wow->w_slide}' alt='{$obj_wow->w_titulo}' title='{$obj_wow->w_titulo}' id='wows0'/></a></li>
 				";
 			}
 			
@@ -35,9 +38,13 @@ if(!isset($connnect))
 	if($selecwow2->rowCount() > 0){
 			while($obj_wow2 = $selecwow2->fetch(PDO::FETCH_OBJ)){
 				
-				echo "
+				/*echo "
 					<a href='#' title='{$obj_wow2->w_titulo}'><img src='{$past}configslider.php?arquivo={$obj_wow2->w_slide}&largura=240&altura=90' alt='{$obj_wow2->w_titulo}'/>Jquery</a>
+				";*/
+				echo "
+					<a href='#' title='{$obj_wow2->w_titulo}'><img width='240' height='90' src='{$past}{$obj_wow2->w_slide}' alt='{$obj_wow2->w_titulo}'/>Jquery</a>
 				";
+				
 			}
 			
 	}else{
